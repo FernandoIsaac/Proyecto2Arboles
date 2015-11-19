@@ -12,6 +12,7 @@ package classes;
 public class Arbol {
     private Nodo raiz;
     
+    
     public Arbol(int value){
         this.raiz = new Nodo(value);
     }

@@ -29,7 +29,7 @@ public class List {
                     head.setNext(temp);
                 }
                 
-                /*86cd-hz5u-tiyh*/
+                /*86cd-hz5u-diyh*/
                 
             } else {
                 Node temp = head;
@@ -84,7 +84,7 @@ public class List {
             }
             return temp;
         }
-        return new Node();
+        return null;
     }
 
     public void remove(int posicion) {
@@ -180,8 +180,13 @@ public class List {
         }
     }
     public int TreeGetValue(int p, List list){
+<<<<<<< HEAD
         Arbol arbol = (Arbol)list.get(p).getValue();
         return arbol.getRaiz().getValue();
+=======
+        Arbol arbol = list.get(p).getArbol();
+        return ((int)arbol.getRaiz().getValue());
+>>>>>>> b5a7441eac0cda10b7e8a85efb98ed1fb8c80587
     }
     
     public Nodo TreeGetNodo(int p, List list){
