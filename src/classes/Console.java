@@ -30,10 +30,10 @@ import javax.swing.text.StyledDocument;
 public class Console {
 
     //System.getProperty("user.dir") //actual string
-    
     File actual;
     int bandera = 0;
     File root = FileSystemView.getFileSystemView().getHomeDirectory();
+    Queue cola;
 
     public static void main(String[] args) {
         new Console();
@@ -44,8 +44,12 @@ public class Console {
     public JTextField input;
     public JScrollPane scrollpane;
 
+    
+
     public StyledDocument document;
     boolean trace = false;
+    
+    
 
     public Console() {
         try {
@@ -122,8 +126,8 @@ public class Console {
 
         frame.setResizable(false);
         frame.setVisible(true);
-        
-        println(root.getPath(),false);
+
+        println(root.getPath(), false);
 
     }
 
@@ -133,7 +137,7 @@ public class Console {
         try {
             if (commands[0].startsWith("ls")) {
                 list(actual.listFiles());
-            }else if (commands[0].startsWith("cd")) {
+            } else if (commands[0].startsWith("cd")) {
                 String message = "";
                 for (int i = 0; i < commands.length; i++) {
                     message += commands[i];
@@ -142,8 +146,38 @@ public class Console {
                     }
                 }
                 changeDirectory(message);
-            }else if (commands[0].equals("clear")) {
+            } else if (commands[0].equals("clear")) {
                 clear();
+            } else if (commands[0].equals("compress")) {
+
+            } else if (commands[0].equals("decompress")) {
+
+            } else if (commands[0].equals("diff")) {
+                String message = "";
+                for (int i = 0; i < commands.length; i++) {
+                    if (i > 3) {
+                        message += commands[i];
+                    }
+                }
+                String temp1 = "";
+                String temp2 = "";
+                int contador = 0;
+                int contador2 = 0;
+                String espacio = " ";
+                while(message.charAt(contador)!= espacio.charAt(0)){
+                    temp1 +=message;
+                    contador++;
+                    contador2 = contador;
+                
+                }
+                for (int i = contador2; i < message.length(); i++) {
+                    temp2 +=message.charAt(i);
+                }
+                File original = new File(actual.getPath() + "/" + temp1);
+                File comparando = new File(actual.getPath() + "/" + temp2);
+                
+                Frame frame = new Frame(original, comparando);
+
             }
 
         } catch (Exception e) {
@@ -197,13 +231,13 @@ public class Console {
                 actual = root;
             } catch (Exception e) {
             }
-            
-        }else if (s.contains("cd ./")) {
+
+        } else if (s.contains("cd ./")) {
             try {
                 actual = new File(actual.getParent());
             } catch (Exception e) {
-            }   
-        }else if (s.contains("cd ")){
+            }
+        } else if (s.contains("cd ")) {
             try {
                 String message = "";
                 for (int i = 0; i < s.length(); i++) {
@@ -212,16 +246,18 @@ public class Console {
                     }
                 }
                 File temp = new File(actual.getPath() + "/" + message);
+                File temp2 = new File(message);
                 if (temp.isDirectory()) {
-                    actual = new File(actual.getPath() + "/" + message);
-                }else{
-                    println("No es directorio", true, new Color(255,155,155));
+                    actual = temp;
+                } else if (temp2.isDirectory()) {
+                    actual = temp2;
+                } else {
+                    println("No es directorio", true, new Color(255, 155, 155));
                 }
-                
+
             } catch (Exception e) {
             }
-                    
-            
+
         }
     }
 
@@ -230,11 +266,11 @@ public class Console {
             if (file.isDirectory() && file.getName().startsWith(".")) {
 
             } else if (file.isDirectory()) {
-                println(file.getName(),false);
+                println(file.getName(), false);
             } else if (file.getName().startsWith(".")) {
 
             } else {
-                println(file.getName(),false);
+                println(file.getName(), false);
             }
         }
     }
