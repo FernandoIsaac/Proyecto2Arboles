@@ -123,7 +123,7 @@ public class Console {
         frame.setResizable(false);
         frame.setVisible(true);
         
-        println("",true);
+        println(root.getPath(),false);
 
     }
 
@@ -203,7 +203,7 @@ public class Console {
                 actual = new File(actual.getParent());
             } catch (Exception e) {
             }   
-        }else{
+        }else if (s.contains("cd ")){
             try {
                 String message = "";
                 for (int i = 0; i < s.length(); i++) {
@@ -211,7 +211,13 @@ public class Console {
                         message += s.charAt(i);
                     }
                 }
-                actual = new File(actual.getPath() + "/" + message);
+                File temp = new File(actual.getPath() + "/" + message);
+                if (temp.isDirectory()) {
+                    actual = new File(actual.getPath() + "/" + message);
+                }else{
+                    println("No es directorio", true, new Color(255,155,155));
+                }
+                
             } catch (Exception e) {
             }
                     
