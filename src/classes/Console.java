@@ -17,6 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 /**
@@ -57,14 +59,21 @@ public class Console {
         input.setEditable(true);
         input.setFont(new Font("Courier New", Font.PLAIN, 12));
         input.setForeground(Color.BLACK);
-        input.setCaretColor(Color.WHITE);
+        input.setCaretColor(Color.BLACK);
         input.setOpaque(false);
 
         input.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                String text = input.getText();
 
+                if (text.length() > 1) {
+                   // print(text + "\n", true);
+                    doCommand(text);
+                    scrollBottom();
+                    input.selectAll();
+                }
             }
 
         }
@@ -102,4 +111,51 @@ public class Console {
         frame.setVisible(true);
 
     }
+
+    public void doCommand(String s) {
+
+        
+        
+        
+    }
+    
+    public void scrollTop(){
+        console.setCaretPosition(0);
+    }
+    
+    public void scrollBottom(){
+        console.setCaretPosition(console.getDocument().getLength());
+    }
+    
+    public void print(String s, boolean trace){
+        print(s,trace,new Color (255, 255, 255));
+    }
+    
+    public void print(String s, boolean trace, Color c){
+        Style style = console.addStyle("Style", null);
+        StyleConstants.setForeground(style, c);
+        
+        if (trace) {
+            Throwable t = new Throwable();
+            // puedo usar esto para display el path
+            StackTraceElement[] elements = t.getStackTrace();
+            String caller = elements[0].getClassName();
+            
+            s= caller + " -> " + s; 
+        }
+        
+        try {
+            document.insertString(document.getLength(), s, style);
+        } catch (Exception e) {
+        }
+    }
+    
+    public void println(String s, boolean trace){
+        println(s,trace, new Color(255,255,255));
+    }
+    
+    public void println(String s, boolean trace, Color c){
+    
+    }
+    
 }
