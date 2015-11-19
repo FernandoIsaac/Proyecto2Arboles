@@ -180,7 +180,7 @@ public class List {
         }
     }
     public int TreeGetValue(int p, List list){
-        Arbol arbol = (Arbol)list.get(p).getArbol();
+        Arbol arbol = (Arbol)list.get(p).getValue();
         return arbol.getRaiz().getValue();
     }
     
@@ -205,6 +205,7 @@ public class List {
             ListaDeArboles.get(i).setArbol(tree);
            System.out.println("7");
         }
+        int cont = 5;
         do {
             //temp = new Arbol(((int)ListaDeArboles.get(0).getValue() + (int) ListaDeArboles.get(1).getValue()));
             temp = new Arbol (TreeGetValue(0, ListaDeArboles)+ TreeGetValue(1, ListaDeArboles));
@@ -215,9 +216,10 @@ public class List {
             ListaDeArboles.remove(0);
             ListaDeArboles.remove(1);
             ListaDeArboles.pushback(temp);
-            this.ordenarTrees(ListaDeArboles);
+            //this.ordenarTrees(ListaDeArboles);
            // System.out.println("Esta papada es infinita");
-        } while (ListaDeArboles.size() > 1);
+            cont--;
+        } while (/*ListaDeArboles.size() > 1*/cont>1);
         TreeToReturn = temp;
         return TreeToReturn;
     }

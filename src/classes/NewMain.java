@@ -26,7 +26,14 @@ public class NewMain {
         lista.pushback(10);
         lista.pushback(7);
         lista.pushback(5);
-
+        
+        /*lista.pushback(5);
+        lista.pushback(7);
+        lista.pushback(10);
+        lista.pushback(15);
+        lista.pushback(20);
+        lista.pushback(45);
+        */
         tree = lista.Huffman(lista);
 
         System.out.println(tree.getRaiz());

@@ -21,7 +21,8 @@ public class Node {
     public Node(Object value) {
         this.value = value;
     }
-
+    
+    
     public Node getNext() {
         return this.next;
     }
@@ -48,7 +49,7 @@ public class Node {
     public Object getValue() {
         return this.value;
     }
-
+   
     public boolean hasNext() {
         if (this.next != null) {
             return true;
