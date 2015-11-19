@@ -12,6 +12,8 @@ package classes;
 public class Node {
     private Node next;
     private Object value;
+    private int valor;
+    private Arbol arbol;
 
     public Node() {
     }
@@ -27,7 +29,18 @@ public class Node {
     public void setNext(Node node) {
         this.next = node;
     }
+    
+    public int getValor(){
+        return this.valor;
+    }
 
+    public Arbol getArbol(){
+        return this.arbol;
+    }
+    public void setArbol(Arbol arbol){
+        this.arbol = arbol;
+    }
+    
     public void setValue(Object value) {
         this.value = value;
     }
